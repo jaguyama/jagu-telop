@@ -10,6 +10,11 @@
    
    ex. keyにaaaを設定した場合 https://jaguyama.github.io/jagu-telop/telop-render.html?key=aaa
 
+4. 更新ボタンを押すとテキストの変更が反映されます
+5. keyを削除したい場合は削除のチェックボックスにチェックを入れて更新ボタンを押します
+
+
+---
 ## CSSの設定方法
 ```html
     <body>
