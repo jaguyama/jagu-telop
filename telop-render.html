@@ -2,6 +2,23 @@
 <html>
     <head>
         <title>テロップ表示用</title>
+        <style>
+            @keyframes dummy {
+                0%{
+                    color: red;
+                }
+                100%{
+                    color: blue;
+                }
+            }
+            .intro{
+                animation: dummy 0s;
+            }
+
+            .outro{
+                animation: dummy 0s;
+            }
+        </style>
         <script>
             const LOCAL_STRAGE_KEY="jaguyama-telop"
             function getUrlQueries() {
@@ -38,12 +55,32 @@
                 let key=queries["key"];
                 
                 let text=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).text:`key"${queries["key"]}"を確認してください`;
-                
-                if(document.getElementById("telop").textContent!=text){
-                    document.getElementById("telop").textContent=text;
-                    console.log(text);
-                };
+                let telop=document.getElementById("telop");
 
+
+
+
+                if(telop.textContent!=text){
+                    let setIntro=function(e){
+                        window.requestAnimationFrame((time)=>{
+                            window.requestAnimationFrame((time)=>{
+                                    telop.className="intro";
+                                    telop.textContent=text;
+                                    telop.removeEventListener("animationend",setIntro);
+                                    telop.addEventListener("animationend",(e)=>{
+                                    telop.className="";
+                                });
+                            });
+                        });
+                    }
+                    window.requestAnimationFrame((time)=>{
+                        window.requestAnimationFrame((time)=>{
+                            telop.className="outro";
+                            telop.addEventListener("animationend",setIntro);
+                        });
+                    });
+                };
+                
             }
             
             window.onload=telopInit;
