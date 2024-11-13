@@ -3,7 +3,15 @@
     <head>
         <title>テロップ表示用</title>
         <style>
-            @keyframes dummy {
+            @keyframes dummy1 {
+                0%{
+                    color: red;
+                }
+                100%{
+                    color: blue;
+                }
+            }
+            @keyframes dummy2 {
                 0%{
                     color: red;
                 }
@@ -12,11 +20,11 @@
                 }
             }
             .intro{
-                animation: dummy 0s;
+                animation: dummy1 0s;
             }
 
             .outro{
-                animation: dummy 0s;
+                animation: dummy2 0s;
             }
         </style>
         <script>
