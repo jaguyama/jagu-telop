@@ -70,18 +70,20 @@
 
                 if(telop.textContent!=text){
                     let setIntro=function(e){
+                        let initClass=function(e){
+                            window.requestAnimationFrame((time)=>{
+                                window.requestAnimationFrame((time)=>{
+                                    telop.className="";
+                                    telop.removeEventListener("animationend",initClass);
+                                });
+                            });
+                        }  
                         window.requestAnimationFrame((time)=>{
                             window.requestAnimationFrame((time)=>{
                                 telop.className="intro";
                                 telop.textContent=text;
                                 telop.removeEventListener("animationend",setIntro);
-                                telop.addEventListener("animationend",(e)=>{
-                                    window.requestAnimationFrame((time)=>{
-                                        window.requestAnimationFrame((time)=>{
-                                            telop.className="";
-                                        });
-                                    });
-                                });
+                                telop.addEventListener("animationend",initClass);
                             });
                         });
                     }
