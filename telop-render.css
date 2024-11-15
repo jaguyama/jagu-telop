@@ -1,0 +1,24 @@
+
+@keyframes dummy1 {
+    0%{
+        color: red;
+    }
+    100%{
+        color: blue;
+    }
+}
+@keyframes dummy2 {
+    0%{
+        color: red;
+    }
+    100%{
+        color: blue;
+    }
+}
+.intro{
+    animation: dummy1 0s;
+}
+
+.outro{
+    animation: dummy2 0s;
+}

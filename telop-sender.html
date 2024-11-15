@@ -1,82 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>テロップ送信用</title>
-        <script>
-            const LOCAL_STRAGE_KEY="jaguyama-telop";
-
-            class telop{
-                constructor(key,text){
-                    this.key=key;
-                    this.text=text;
-                }
-            }
-
-            
-
-            function addList(){
-                const telopList=document.getElementById("telop-list");
-                telopList.insertAdjacentHTML("beforeend",`
-                <li>
-                    <form>
-                        <input type="text" placeholder="key" name="key">
-                        <input type="text" placeholder="text" name="text">
-                        <label><input type="checkbox" name="delete">削除</label>
-                    </form>
-                </li>
-                `);
-            }
-
-            function updateList(){
-                let ktlist=[] ;
-                let telopList=Array.from(document.forms);
-                telopList.forEach((elm)=>{
-                    if(elm["delete"].checked){
-                        elm.parentNode.remove();
-                    }
-                });
-                telopList=Array.from(document.forms);
-                telopList.forEach((elm)=>{
-                    let key = elm["key"].value;
-                    let text =elm["text"].value;
-                    let tp =new telop(key,text);
-                    ktlist.push(tp);
-                });
-
-                localStorage.setItem(LOCAL_STRAGE_KEY,JSON.stringify(ktlist));
-            }
-
-
-            window.onload=function(){
-
-                const addButton=document.getElementById("addButton");
-                const apdateButton=document.getElementById("updateButton");
-                const telopList=document.getElementById("telop-list");
-                
-                addButton.addEventListener("click",addList);
-                updateButton.addEventListener("click",updateList);
-
-                telopData=JSON.parse(localStorage.getItem(LOCAL_STRAGE_KEY));
-                telopData.forEach((data)=>{
-                    telopList.insertAdjacentHTML("beforeend",`
-                        <li>
-                            <form>
-                                <input type="text" placeholder="key" name="key" value="${data.key}"">
-                                <input type="text" placeholder="text" name="text" value="${data.text}">
-                                <label><input type="checkbox" name="delete">削除</label>
-                            </form>
-                        </li>
-                    `);
-                });
-            }
-        </script>
+        <link rel="stylesheet" type="text/css" href="telop-sender.css">
+        <script src="telop-sender.js"></script>
     </head>
     <body>
         <ol id="telop-list">
 
         </ol>
         <br>
-        <input type="button" value="追加" id="addButton"><br><br>
+        <input type="button" value="追加" id="addButton">
         <input type="button" value="更新" id="updateButton">
+        <br>
+        <details><summary>JSONデータ</summary>
+        <textarea id="telopDataText"></textarea>
+        <input type="button" value="読込" id="loadButton">
+        </details>
     </body>
 </html>
