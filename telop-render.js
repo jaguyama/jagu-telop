@@ -1,5 +1,4 @@
 
-const LOCAL_STRAGE_KEY="jaguyama-telop"
 function getUrlQueries() {
     var queryStr = window.location.search.slice(1);  // 文頭?を除外
     queries = {};
@@ -34,26 +33,54 @@ function  telopUpdate(e){
     let key=queries["key"];
     
     let text=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).text:`key"${queries["key"]}"を確認してください`;
-    let telop=document.getElementById("telop");
+    
+    let fontFamily=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).fontFamily:"";
+    let fontSize=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).fontSize:"";
+    let intro=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).intro:"";
+    let outro=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).outro:"";
 
+     let telopElm=document.getElementById("telop");
+    let telopRenderCSS;
+    for(const v of document.styleSheets){
+        if(v["title"]=="telopRenderCSS"){
+            telopRenderCSS=v;
+//            console.log(v);
+        }
+    } 
+    for(const v of telopRenderCSS.cssRules){
+        if(v.selectorText==".intro"){
+            v.style.setProperty("--intro-name",intro);
+        }
+        if(v.selectorText==".outro"){
+//            v.style.setProperty("--outro-name",intro);
+        }
+        if(v.selectorText=="#telop"){
+            v.style.setProperty("--font-name",fontFamily);
+            v.style.setProperty("--font-size",fontSize);
+        }
+    }
 
+    for(const v of document.styleSheets){
+        if(v["title"]=="telopRenderCSS"){
+            console.log(v);
+        }
+    } 
 
-
-    if(telop.textContent!=text){
+    if(telopElm.textContent!=text){
         let setIntro=function(e){
             let initClass=function(e){
-                telop.className="";
-                telop.removeEventListener("animationend",initClass);
+                telopElm.className="";
+                telopElm.removeEventListener("animationend",initClass);
             }  
-            telop.className="intro";
-            telop.textContent=text;
-            telop.removeEventListener("animationend",setIntro);
-            telop.addEventListener("animationend",initClass);
+            telopElm.className="intro";
+            telopElm.textContent=text;
+            telopElm.removeEventListener("animationend",setIntro);
+            telopElm.addEventListener("animationend",initClass);
         }
         window.requestAnimationFrame((time)=>{
             window.requestAnimationFrame((time)=>{
-                telop.className="outro";
-                telop.addEventListener("animationend",setIntro);
+                telopElm.className="outro";
+                telopElm.addEventListener("animationend",setIntro);
             });
         });
     };

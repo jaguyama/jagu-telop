@@ -1,24 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Noto+Sans+JP:wght@100..900&family=Zen+Old+Mincho&display=swap');
 
-@keyframes dummy1 {
+@keyframes introNone {
     0%{
-        color: red;
+        opacity: 0;
     }
     100%{
-        color: blue;
+        opacity: 1;
     }
 }
-@keyframes dummy2 {
+
+@keyframes outroNone {
     0%{
-        color: red;
+        opacity: 1;
     }
     100%{
-        color: blue;
+        opacity: 0;
     }
 }
+
+@keyframes introFade{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes outroFade{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes introSlideToLeft {
+    0%{
+        margin-left: 100%;
+    }
+    100%{
+        margin-left: 0%;
+    }
+}
+
+@keyframes outroSlideToLeft{
+    0%{
+        margin-left: 0%;
+    }
+    100%{
+        margin-left: -100%;
+    }
+}
+
+@keyframes introSlideToRight {
+    0%{
+        translate: -100%;
+    }
+    100%{
+        translate: 0%;
+    }
+}
+
+@keyframes outroSlideToRight {
+    0%{
+        translate: 0%;
+    }
+    100%{
+        translate: 100%;
+    }
+}
+
+@keyframes introSlideToTop {
+    0%{
+        translate:0 100%;
+    }
+    100%{
+        translate:0 0%;
+    }
+}
+    
+@keyframes outroSlideToTop {
+    0%{
+        translate:0 0%;
+    }
+    100%{
+        translate:0 -100%;
+    }
+}
+
+@keyframes introSlideToButton {
+    0%{
+        translate:0 -100%;
+    }
+    100%{
+        translate:0 0%;
+    }
+}
+    
+@keyframes outroSlideToButton {
+    0%{
+        translate:0 0%;
+    }
+    100%{
+        translate:0 100%;
+    }
+}
+
 .intro{
-    animation: dummy1 0s;
+    --intro-name:introNone;
+    animation-name: var(--intro-name);
+    animation-duration:  0.5s;
 }
 
 .outro{
-    animation: dummy2 0s;
+    --outro-name:outroNone;
+    animation-name: var(--outro-name);
+    animation-duration:  0.5s;
+}
+
+#telop{
+    --font-name:"Noto Sans JP";
+    --font-size:100px;
+    font-family: var(--font-name);
+    font-size: 100px;
 }
