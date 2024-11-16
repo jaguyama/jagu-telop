@@ -38,19 +38,19 @@
 
 @keyframes introSlideToLeft {
     0%{
-        margin-left: 100%;
+        translate: 100%;
     }
     100%{
-        margin-left: 0%;
+        translate: 0%;
     }
 }
 
 @keyframes outroSlideToLeft{
     0%{
-        margin-left: 0%;
+        translate: 0%;
     }
     100%{
-        margin-left: -100%;
+        translate: -100%;
     }
 }
 
@@ -90,7 +90,7 @@
     }
 }
 
-@keyframes introSlideToButton {
+@keyframes introSlideToBottom {
     0%{
         translate:0 -100%;
     }
@@ -99,7 +99,7 @@
     }
 }
     
-@keyframes outroSlideToButton {
+@keyframes outroSlideToBottom {
     0%{
         translate:0 0%;
     }

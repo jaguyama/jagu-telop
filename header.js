@@ -11,16 +11,16 @@ const fontList=[
 const introList=[
     ["introNone","アニメーションなし"],
     ["introFade","フェードイン"],
-    ["introSlideToleft","左にスライド"],
+    ["introSlideToLeft","左にスライド"],
     ["introSlideToRight","右にスライド"],
-    ["introSlideToUp","上にスライド"],
+    ["introSlideToTop","上にスライド"],
     ["introSlideToBottom","下にスライド"]
 ];
 
 const outroList=[
     ["outroNone","アニメーションなし"],
     ["outroFade","フェードアウト"],
-    ["outroSlideToleft","左にスライド"],
+    ["outroSlideToLeft","左にスライド"],
     ["outroSlideToRight","右にスライド"],
     ["outroSlideToTop","上にスライド"],
     ["outroSlideToBottom","下にスライド"]
