@@ -9,6 +9,7 @@ function makeOption(){
     }
     for(const v of outroList){
         outroOption= outroOption+`<option value="${v[0]}" name="${v[0]}">${v[1]}</option>`;
+        console.log(v);
     }
 }
 

@@ -19,7 +19,7 @@ const introList=[
 
 const outroList=[
     ["outroNone","アニメーションなし"],
-    ["outroFade","フェードイン"],
+    ["outroFade","フェードアウト"],
     ["outroSlideToleft","左にスライド"],
     ["outroSlideToRight","右にスライド"],
     ["outroSlideToTop","上にスライド"],

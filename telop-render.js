@@ -1,3 +1,10 @@
+function generateTelopHTML(telopText){
+    return `
+    <div id="telop">
+        ${telopText}
+    </div>
+    `;
+}
 
 function getUrlQueries() {
     var queryStr = window.location.search.slice(1);  // 文頭?を除外
@@ -18,15 +25,6 @@ function getUrlQueries() {
 }
 
 
-function  telopInit(e){
-    const queries=getUrlQueries();
-    let telopData=JSON.parse(localStorage.getItem(LOCAL_STRAGE_KEY));
-    let key=queries["key"];
-    
-    let text=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).text:`key"${queries["key"]}"を確認してください`;
-    document.getElementById("telop").textContent=text;
-}
-
 function  telopUpdate(e){
     const queries=getUrlQueries();
     let telopData=JSON.parse(localStorage.getItem(LOCAL_STRAGE_KEY));
@@ -39,53 +37,62 @@ function  telopUpdate(e){
     let intro=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).intro:"";
     let outro=telopData.find((d)=>(d.key==key))?telopData.find((d)=>(d.key==key)).outro:"";
 
-     let telopElm=document.getElementById("telop");
+    let telopElm=document.getElementById("telop");
+    let placeholder=document.getElementById("place-holder");
     let telopRenderCSS;
-    for(const v of document.styleSheets){
-        if(v["title"]=="telopRenderCSS"){
-            telopRenderCSS=v;
-//            console.log(v);
+
+    function setNewTelop(){
+        for(const v of document.styleSheets){
+            if(v["title"]=="telopRenderCSS"){
+                telopRenderCSS=v;
+            }
+        } 
+        for(const v of telopRenderCSS.cssRules){
+            if(v.selectorText==".intro"){
+                v.style.setProperty("--intro-name",intro);
+            }
+            if(v.selectorText==".outro"){
+                v.style.setProperty("--outro-name",outro);
+            }
+            if(v.selectorText=="#telop"){
+                v.style.setProperty("--font-name",fontFamily);
+                v.style.setProperty("--font-size",fontSize);
+            }
         }
-    } 
-    for(const v of telopRenderCSS.cssRules){
-        if(v.selectorText==".intro"){
-            v.style.setProperty("--intro-name",intro);
-        }
-        if(v.selectorText==".outro"){
-//            v.style.setProperty("--outro-name",intro);
-        }
-        if(v.selectorText=="#telop"){
-            v.style.setProperty("--font-name",fontFamily);
-            v.style.setProperty("--font-size",fontSize);
-        }
+        placeholder.insertAdjacentHTML("afterbegin",generateTelopHTML(text));
+        telopElm=document.getElementById("telop");
     }
 
-    for(const v of document.styleSheets){
-        if(v["title"]=="telopRenderCSS"){
-            console.log(v);
-        }
-    } 
+    let initClass=function(e){
+        telopElm.className="";
+        telopElm.removeEventListener("animationend",initClass);
+    }
 
-    if(telopElm.textContent!=text){
-        let setIntro=function(e){
-            let initClass=function(e){
-                telopElm.className="";
-                telopElm.removeEventListener("animationend",initClass);
-            }  
-            telopElm.className="intro";
-            telopElm.textContent=text;
-            telopElm.removeEventListener("animationend",setIntro);
-            telopElm.addEventListener("animationend",initClass);
-        }
-        window.requestAnimationFrame((time)=>{
-            window.requestAnimationFrame((time)=>{
-                telopElm.className="outro";
-                telopElm.addEventListener("animationend",setIntro);
-            });
+    let initTelop=function(e){
+        setNewTelop();
+        telopElm.className="intro";
+        telopElm.addEventListener("animationend",initClass);
+    }
+
+    let refreshTelop=function(e){
+        telopElm.remove();
+        initTelop();
+    }
+
+    let setOutro=function(e){
+        telopElm.className="outro";
+        telopElm.addEventListener("animationend",refreshTelop);
+    }
+
+    if(!telopElm){
+        initTelop()
+    }else if(telopElm.textContent!=text){
+        window.requestAnimationFrame(()=>{
+            window.requestAnimationFrame(setOutro);
         });
     };
     
 }
 
-window.onload=telopInit;
+window.onload=telopUpdate;
 window.onstorage=telopUpdate;
