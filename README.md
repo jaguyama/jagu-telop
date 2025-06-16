@@ -16,8 +16,10 @@
 ## CSSの設定方法
 ```html
     <body>
-        <div id="telop">
+        <div id="place-holder">
+            <div id="telop">
 
+            </div>
         </div>
     </body>
 ```
